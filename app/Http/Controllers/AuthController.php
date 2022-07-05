@@ -70,7 +70,7 @@ class AuthController extends Controller{
         ]);
 
         // Le asignamos el rol de Cliente
-        $user->assignRole('cliente');
+        $user->assignRole('client');
 
     }
 
@@ -92,6 +92,11 @@ class AuthController extends Controller{
                 'type' => 'bearer',
             ]
         ]);
+    }
+
+    public function profile(){
+
+        return response()->json(auth()->user());
     }
 
 }

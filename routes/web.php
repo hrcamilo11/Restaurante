@@ -18,6 +18,16 @@ Route::get('/', function () {
 });
 
 Route::group(
-    ['middleware' => ['role:cliente']], function () {
+    ['middleware' => ['role:client']], function () {
+    //rutas accesibles solo para clientes
+});
+
+Route::group(
+    ['middleware' => ['role:admin']], function () {
+    return view('welcome');
+});
+
+Route::group(
+    ['middleware' => ['role:empleado']], function () {
     //rutas accesibles solo para clientes
 });
