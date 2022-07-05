@@ -27,9 +27,9 @@ class RoleSeeder extends Seeder
 
       */
       //Creación de roles
-       $rol1 = Role::create(['name' => 'admin']);
-       $rol2 = Role::create(['name' => 'empleado']);
-       $rol3 = Role::create(['name' => 'client']);
+       $Admin = Role::create(['name' => 'admin']);
+       $Empleado = Role::create(['name' => 'empleado']);
+       $Client = Role::create(['name' => 'client']);
 
        //Creación de permisos
        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
