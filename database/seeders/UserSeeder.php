@@ -100,6 +100,14 @@ class UserSeeder extends Seeder
             $PermisoUser11,
             $PermisoUser12,
 
+            //Permisos Role
+
+            $PermisoRole1,
+            $PermisoRole2,
+            $PermisoRole3,
+            $PermisoRole4,
+
+
             //Permisos Productos
 
             $PermisoProduct1,

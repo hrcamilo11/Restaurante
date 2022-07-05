@@ -15,8 +15,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(ProductController::class)->group(function () {
     Route::get('index', 'index');
-    Route::get('show', 'show');
-    Route::get('create', 'create');
+    Route::get('show/{$id}', 'show');
     Route::post('store', 'store');
     Route::get('edit', 'edit');
     Route::put('update', 'update');

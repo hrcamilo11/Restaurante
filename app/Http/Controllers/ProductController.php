@@ -7,39 +7,33 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        return Product::all();
+    }
 
-    public function index() {
+    public function show($id) {
 
-    $Product = Product::all();
-   return View::make('Product.index')->with('Product', $Product);
-
-   }
-
-   public function show($id) {
-
-    $Product = Product::find($id);
-   return View::make('Product.show')->with('Product', $Product);
-   }
-
-   public function create() {
-   }
-
-   public function store() {
-   }
-
-   public function edit($id) {
-   }
-
-   public function update($id) {
-   }
-
-   public function destroy($id) {
-
-    $Product = Product::find($id);
-    $Product->delete();
-   return Redirect::to('Product')->with('notice', 'El Producto {$id} ha sido eliminado correctamente.');
-
+    $Product = Product::where('id',$id)->first();
+    return response()->json($product);
    }
 
 
+    public function store(Request $request)
+    {
+        $product = Product::create($request->all());
+        return response()->json($product, 201);
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $product->update($request->all());
+        return response()->json($product, 200);
+    }
+
+    public function delete(Request $request, Product $product, $id)
+    {
+        $product->delete($request($id));
+        return response()->json(null, 204);
+    }
 }
