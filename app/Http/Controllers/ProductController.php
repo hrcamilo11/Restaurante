@@ -7,33 +7,69 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function index()
+
+    public function __construct()
     {
-        return Product::all();
+        $this->middleware('auth:api', ['except' => ['index']]);
     }
 
-    public function show($id) {
-
-    $Product = Product::where('id',$id)->first();
-    return response()->json($product);
-   }
-
+    public function index()
+    {
+        $Product = Product::all();
+        return $Product;
+    }
 
     public function store(Request $request)
     {
-        $product = Product::create($request->all());
-        return response()->json($product, 201);
+        $Product = Product::create([
+            'Description' => $request->Description,
+            'Price' => $request->Price,
+            'Stock' => $request->Stock,
+        ]);
+        $Product->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product created successfully',
+            'Product' => $Product,
+            ],201);
     }
 
-    public function update(Request $request, Product $product)
+    public function show($id)
     {
-        $product->update($request->all());
-        return response()->json($product, 200);
+        //
     }
 
-    public function delete(Request $request, Product $product, $id)
+    public function edit($id)
     {
-        $product->delete($request($id));
-        return response()->json(null, 204);
+        //
     }
+
+    public function update(Request $request)
+    {
+        $Product = Product::FindOrFail($request->id);
+
+            $Product->Description = $request->Description;
+            $Product->Price = $request->Price;
+            $Product->Stock = $request->Stock;
+
+            $Product->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product updated successfully',
+            'Product' => $Product,
+            ]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $Product = Product::destroy($request->id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product deleted successfully',
+            'Product' => $Product,
+            ]);;
+    }
+
 }
