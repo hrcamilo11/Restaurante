@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\validator;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -21,6 +22,22 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
+
+        $validator = Validator::make($request->all(),[
+            'Description' => 'required|string|max:255|unique:products',
+            'Price' => 'required|numeric',
+            'Stock' => 'required|numeric',
+
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                $validator->errors()->toJson(),
+                'status'  => false,
+                'code' => 409
+            ]);
+        }
+
         $Product = Product::create([
             'Description' => $request->Description,
             'Price' => $request->Price,
@@ -47,23 +64,38 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
-        $Product = Product::FindOrFail($request->id);
+            $validator = Validator::make($request->all(),[
+            'Description' => 'required|string|max:255',
+            'Price' => 'required|numeric',
+            'Stock' => 'required|numeric',
 
-            $Product->Description = $request->Description;
-            $Product->Price = $request->Price;
-            $Product->Stock = $request->Stock;
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                $validator->errors()->toJson(),
+                'status'  => false,
+                'code' => 409
+            ]);
+        }
 
-            $Product->save();
+        $Product = Product::update([
+            'Description' => $request->Description,
+            'Price' => $request->Price,
+            'Stock' => $request->Stock,
+        ]);
+        $Product->save();
+
 
         return response()->json([
             'status' => 'success',
             'message' => 'Product updated successfully',
-            'Product' => $Product,
+            'Product' => $product,
             ]);
     }
 
     public function destroy(Request $request)
     {
+
         $Product = Product::destroy($request->id);
         return response()->json([
             'status' => 'success',

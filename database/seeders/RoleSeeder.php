@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use HasRoles;
 
 class RoleSeeder extends Seeder
@@ -35,44 +36,44 @@ class RoleSeeder extends Seeder
        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //USER
        // - Create
-      $PermisoUser1 = Permission::create(['name'=>'Users.Create.admin']);
-      $PermisoUser2 = Permission::create(['name'=>'Users.Create.empleado']);
-      $PermisoUser3 = Permission::create(['name'=>'Users.Create.client']);
+      Permission::create(['name'=>'Users.Create.admin'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Create.empleado'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Create.client'])->SyncRoles(['admin','client']);
       // - Edit
-      $PermisoUser4 = Permission::create(['name'=>'Users.Edit.admin']);
-      $PermisoUser5 = Permission::create(['name'=>'Users.Edit.empleado']);
-      $PermisoUser6 = Permission::create(['name'=>'Users.Edit.client']);
+      Permission::create(['name'=>'Users.Edit.admin'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Edit.empleado'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Edit.client'])->SyncRoles(['admin','client']);
       // - Read
-      $PermisoUser7 = Permission::create(['name'=>'Users.Read.admin']);
-      $PermisoUser8 = Permission::create(['name'=>'Users.Read.empleado']);
-      $PermisoUser9 = Permission::create(['name'=>'Users.Read.client']);
+      Permission::create(['name'=>'Users.Read.admin'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Read.empleado'])->SyncRoles(['admin','empleado']);
+      Permission::create(['name'=>'Users.Read.client'])->SyncRoles(['admin','client']);
       // - Delete
-      $PermisoUser10 = Permission::create(['name'=>'Users.Delete.admin']);
-      $PermisoUser11 = Permission::create(['name'=>'Users.Delete.empleado']);
-      $PermisoUser12 = Permission::create(['name'=>'Users.Delete.client']);
+      Permission::create(['name'=>'Users.Delete.admin'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Delete.empleado'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Delete.client'])->SyncRoles(['admin','client']);
 
 
        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //ROLE
        // - Create
-      $PermisoRole1 = Permission::create(['name'=>'Role.Create']);
+      Permission::create(['name'=>'Role.Create'])->SyncRoles(['admin']);
       // - Edit
-      $PermisoRole2 = Permission::create(['name'=>'Role.Edit']);
+      Permission::create(['name'=>'Role.Edit'])->SyncRoles(['admin']);
       // - Read
-      $PermisoRole3 = Permission::create(['name'=>'Role.Read']);;
+      Permission::create(['name'=>'Role.Read'])->SyncRoles(['admin']);
       // - Delete
-      $PermisoRole4 = Permission::create(['name'=>'Role.Delete']);
+      Permission::create(['name'=>'Role.Delete'])->SyncRoles(['admin']);
 
       // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //PRODUCT
        // - Create
-      $PermisoProduct1 = Permission::create(['name'=>'Product.Create']);
+      Permission::create(['name'=>'Product.Create'])->SyncRoles(['admin','empleado']);
       // - Edit
-      $PermisoProduct2 = Permission::create(['name'=>'Product.Edit']);
+      Permission::create(['name'=>'Product.Edit'])->SyncRoles(['admin','empleado','client']);
       // - Read
-      $PermisoProduct3 = Permission::create(['name'=>'Product.Read']);
+      Permission::create(['name'=>'Product.Read'])->SyncRoles(['admin','empleado','client']);
       // - Delete
-      $PermisoProduct4 = Permission::create(['name'=>'Product.Delete']);
+      Permission::create(['name'=>'Product.Delete'])->SyncRoles(['admin','empleado']);
 
 
     }

@@ -5,20 +5,34 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 
-    Route::controller(AuthController::class)
-        ->group(function () {
-            Route::post('login', 'login');
-            Route::post('register', 'register');
-            Route::post('logout', 'logout');
-            Route::post('refresh', 'refresh');
-            Route::get('profile', 'profile');
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+    Route::group([
+        'middleware'=> 'api',
+        'prefix'=>'auth',
+    ],function($router){
+            Route::post('login',[AuthController::class,'login']);
+            Route::post('registeradmin', [AuthController::class,'registeradmin']);
+            Route::post('register', [AuthController::class,'registerclient']);
+            Route::post('logout', [AuthController::class,'logout']);
+            Route::post('refresh', [AuthController::class,'refresh']);
+            Route::get('profile', [AuthController::class,'profile']);
+            Route::put('update', [AuthController::class,'update']);
+            Route::delete('destroy', [AuthController::class,'destroy']);
     });
 
 
-    Route::controller(ProductController::class)
-        ->group(function () {
-            Route::get('index', 'index');
-            Route::post('store', 'store');
-            Route::put('update', 'update');
-            Route::delete('destroy', 'destroy');
+
+
+    Route::group([
+        'middleware'=> 'api',
+        'prefix'=>'Product',
+    ],function($router){
+            Route::get('index', [ProductController::class,'index']);
+            Route::post('store', [ProductController::class, 'store']);
+            Route::put('update', [ProductController::class,'update']);
+            Route::delete('destroy',[ProductController::class,'destroy']);
         });
