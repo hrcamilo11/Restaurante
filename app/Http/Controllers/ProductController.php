@@ -12,6 +12,9 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['index']]);
+        $this->middleware('can:Product.Create')->only('store');
+        $this->middleware('can:Product.Edit')->only('update');
+        $this->middleware('can:Product.Delete')->only('destroy');
     }
 
     public function index()
@@ -22,8 +25,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
-
         $validator = Validator::make($request->all(),[
             'Description' => 'required|string|max:255|unique:products',
             'Price' => 'required|numeric',

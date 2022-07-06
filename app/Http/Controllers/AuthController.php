@@ -11,7 +11,9 @@ class AuthController extends Controller{
 
     public function __construct(){
         $this->middleware('auth:api', ['except' => ['login','registerclient']]);
-    }
+        $this->middleware('can:Users.Edit.admin')->only('update');
+        $this->middleware('can:Users.Delete.admin')->only('destroy');
+        }
 
     public function login(Request $request){
 
@@ -41,7 +43,6 @@ class AuthController extends Controller{
                     'type' => 'bearer',
                 ]
             ]);
-
     }
 
     public function registeradmin(Request $request){
@@ -73,7 +74,6 @@ class AuthController extends Controller{
 
         // Le asignamos el rol de Cliente
         $user->assignRole('client');
-
     }
 
     public function registerclient(Request $request){
@@ -103,9 +103,6 @@ class AuthController extends Controller{
             ]
         ]);
 
-        // Le asignamos el rol de Cliente
-
-
     }
 
     public function logout(){
@@ -133,8 +130,7 @@ class AuthController extends Controller{
         return response()->json(auth()->user());
     }
 
-        public function update(Request $request)
-    {
+    public function update(Request $request){
             $validator = Validator::make($request->all(),[
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
@@ -151,9 +147,10 @@ class AuthController extends Controller{
         }
 
         $User = User::update([
-            'Description' => $request->Description,
-            'Price' => $request->Price,
-            'Stock' => $request->Stock,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'id_rol' => $request->id_rol,
         ]);
         $User->save();
 
@@ -165,8 +162,7 @@ class AuthController extends Controller{
             ]);
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request){
 
         $Product = Product::destroy($request->id);
         return response()->json([

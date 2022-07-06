@@ -13,21 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::group(
-    ['middleware' => ['role:client']], function () {
-    //rutas accesibles solo para clientes
-});
-
-Route::group(
-    ['middleware' => ['role:admin']], function () {
-    return view('welcome');
-});
-
-Route::group(
-    ['middleware' => ['role:empleado']], function () {
-    //rutas accesibles solo para clientes
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//
+//Route::group(
+//    ['middleware' => ['role:client']], function () {
+//    //rutas accesibles solo para clientes
+//});
