@@ -96,10 +96,13 @@ class RoleController extends Controller
 
     public function destroy(Request $request)
     {
+        $RoleTemp=Role::findOrFail($request->id);
+
         $Role = Role::destroy($request->id);
         return response()->json([
             'status' => 'success',
             'message' => 'Role deleted successfully',
-            ]);
+            'User' => $RoleTemp,
+            ]);;
     }
 }

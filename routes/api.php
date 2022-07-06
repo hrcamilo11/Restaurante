@@ -22,8 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
             Route::post('logout', [AuthController::class,'logout']);
             Route::post('refresh', [AuthController::class,'refresh']);
             Route::get('profile', [AuthController::class,'profile']);
-            Route::put('update', [AuthController::class,'update']);
-            Route::delete('destroy', [AuthController::class,'destroy']);
+            Route::put('update/{id}', [AuthController::class,'update']);
+            Route::delete('destroy/{id}', [AuthController::class,'destroy']);
     });
 
     Route::group([
@@ -32,8 +32,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     ],function($router){
             Route::get('index', [ProductController::class,'index']);
             Route::post('store', [ProductController::class, 'store']);
-            Route::put('update', [ProductController::class,'update']);
-            Route::delete('destroy',[ProductController::class,'destroy']);
+            Route::put('update/{id}', [ProductController::class,'update']);
+            Route::delete('destroy/{id}',[ProductController::class,'destroy']);
         });
 
     Route::group([

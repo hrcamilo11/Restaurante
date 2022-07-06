@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\validator;
 use App\Models\User;
 
 class AuthController extends Controller{
@@ -146,29 +147,30 @@ class AuthController extends Controller{
             ]);
         }
 
-        $User = User::update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'id_rol' => $request->id_rol,
-        ]);
-        $User->save();
+        $User = User::findOrFail($request->id);
+            $User->name = $request->name;
+            $User->email = $request->email;
+            $User->password = $request->password;
+            $User->id_rol = $request->id_rol;
+            $User->save();
 
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Product updated successfully',
-            'Product' => $product,
+            'message' => 'User updated successfully',
+            'User' => $User,
             ]);
     }
 
     public function destroy(Request $request){
 
-        $Product = Product::destroy($request->id);
+        $UserTemp=User::findOrFail($request->id);
+
+        $User = User::destroy($request->id);
         return response()->json([
             'status' => 'success',
-            'message' => 'Product deleted successfully',
-            'Product' => $Product,
+            'message' => 'User deleted successfully',
+            'User' => $UserTemp,
             ]);;
     }
 

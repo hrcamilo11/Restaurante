@@ -79,29 +79,28 @@ class ProductController extends Controller
             ]);
         }
 
-        $Product = Product::update([
-            'Description' => $request->Description,
-            'Price' => $request->Price,
-            'Stock' => $request->Stock,
-        ]);
-        $Product->save();
-
+        $Product = Product::findOrFail($request->id);
+            $Product->Description = $request->Description;
+            $Product->Price = $request->Price;
+            $Product->Stock = $request->Stock;
+            $Product->save();
 
         return response()->json([
             'status' => 'success',
             'message' => 'Product updated successfully',
-            'Product' => $product,
+            'Product' => $Product,
             ]);
     }
 
     public function destroy(Request $request)
     {
+        $ProductTemp=Product::findOrFail($request->id);
 
         $Product = Product::destroy($request->id);
         return response()->json([
             'status' => 'success',
             'message' => 'Product deleted successfully',
-            'Product' => $Product,
+            'User' => $ProductTemp,
             ]);;
     }
 

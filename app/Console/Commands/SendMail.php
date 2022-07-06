@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use App\Models\Product;
 
 
 class SendMail extends Command
@@ -39,8 +41,19 @@ class SendMail extends Command
      */
     public function handle()
     {
-        $text = "[" . date("Y-m-d H:i:s") . "] : - - - - ";
-        Storage::append("archivo.txt",$text);
+        $Product = Product::all();
+
+        $User = User::Role(['Administrador', 'Vendedor'])->get();
+
+        foreach ($Product as $Products) {
+            if ($Products->stock <= 10) {
+                foreach ($User as $Users) {
+                    Mail::to($Users)->send(new
+                    SendMailable($Products));
+                    Log::info("Successfully, cron is running");
+                }
+            }
+        }
 
     }
 }
