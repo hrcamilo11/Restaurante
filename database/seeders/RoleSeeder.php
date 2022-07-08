@@ -36,7 +36,7 @@ class RoleSeeder extends Seeder
        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //USER
        // - Create
-      Permission::create(['name'=>'Users.Create.admin'])->SyncRoles(['admin']);
+      Permission::create(['name'=>'Users.Create.admin'])->SyncRoles(['admin'])->name('');
       Permission::create(['name'=>'Users.Create.empleado'])->SyncRoles(['admin']);
       Permission::create(['name'=>'Users.Create.client'])->SyncRoles(['admin','client']);
       // - Edit

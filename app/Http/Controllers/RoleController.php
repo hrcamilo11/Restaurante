@@ -27,11 +27,42 @@ class RoleController extends Controller
         return $Role;
     }
 
-    public function create()
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:255',
+            ]);
+        if($validator->fails()){
+            return response()->json([
+                $validator->errors()->toJson(),
+                'status'  => false,
+                'code' => 409
+            ]);
+        }
+        $Role = Role::update([
+            'name' => $request->name,
+            ]);
+        $Role->save();
+
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Role updated successfully',
+            'Role' => $Role,
+            ]);
     }
 
+    public function destroy(Request $request)
+    {
+        $RoleTemp=Role::findOrFail($request->id);
+
+        $Role = Role::destroy($request->id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Role deleted successfully',
+            'Role' => $RoleTemp,
+            ]);;
+    }
 
     public function store(Request $request)
     {
@@ -69,40 +100,9 @@ class RoleController extends Controller
         //
     }
 
-    public function update(Request $request)
+        public function create()
     {
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|string|max:255',
-            ]);
-        if($validator->fails()){
-            return response()->json([
-                $validator->errors()->toJson(),
-                'status'  => false,
-                'code' => 409
-            ]);
-        }
-        $Role = Role::update([
-            'name' => $request->name,
-            ]);
-        $Role->save();
-
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Role updated successfully',
-            'Role' => $Role,
-            ]);
+        //
     }
 
-    public function destroy(Request $request)
-    {
-        $RoleTemp=Role::findOrFail($request->id);
-
-        $Role = Role::destroy($request->id);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Role deleted successfully',
-            'User' => $RoleTemp,
-            ]);;
-    }
 }
