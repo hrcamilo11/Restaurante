@@ -36,7 +36,7 @@ class RoleSeeder extends Seeder
        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //USER
        // - Create
-      Permission::create(['name'=>'Users.Create.admin'])->SyncRoles(['admin'])->name('');
+      Permission::create(['name'=>'Users.Create.admin'])->SyncRoles(['admin']);
       Permission::create(['name'=>'Users.Create.empleado'])->SyncRoles(['admin']);
       Permission::create(['name'=>'Users.Create.client'])->SyncRoles(['admin','client']);
       // - Edit
@@ -74,6 +74,15 @@ class RoleSeeder extends Seeder
       Permission::create(['name'=>'Product.Read'])->SyncRoles(['admin','empleado','client']);
       // - Delete
       Permission::create(['name'=>'Product.Delete'])->SyncRoles(['admin','empleado']);
+
+      // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+       //SHOP
+       // - Add
+      Permission::create(['name'=>'Shop.Add'])->SyncRoles(['admin','empleado','client']);
+      // - Sale
+      Permission::create(['name'=>'Shop.Sale'])->SyncRoles(['admin','empleado','client']);
+      // - Pay
+      Permission::create(['name'=>'Shop.Pay'])->SyncRoles(['admin','empleado','client']);
 
 
     }
