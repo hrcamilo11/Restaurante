@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use app\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use HasRoles;
+
 
 class UserSeeder extends Seeder
 {
@@ -17,36 +20,40 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //Asignamos variables a cada rol
-        $RolAdmin = Role::where('name','admin')->first();
-        $RolClient = Role::where('name','client')->first();
-        $RolEmpleado = Role::where('name','empleado')->first();
 
         //Creamos usuarios
 
-
-
         //ADMIN
-        $UserAdmin = \App\Models\User::factory()->create([
-        'name'=> 'Admin',
-        'email'=> 'admin@test.com',
-        'password'=> bcrypt('123456789'),
+        $UserAdmin = \App\Models\User::create([
+            'name' => 'admin',
+            'email' => 'admin@test.com',
+            'id_rol' => '1',
+            'email_verified_at' => now(),
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10)
         ])->assignRole('admin');
 
 
         //EMPLEADO
-        $UserEmpleado = \App\Models\User::factory()->create([
-        'name'=> 'Empleado',
-        'email'=> 'empleado@test.com',
-        'password'=> bcrypt('123456789'),
+            $UserEmpleado = \App\Models\User::create([
+            'name' => 'Empleado',
+            'email' => 'empleado@test.com',
+            'id_rol' => '2',
+            'email_verified_at' => now(),
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10)
         ])->assignRole('empleado');
 
 
         //CLIENTE
-        $UserClient = \App\Models\User::factory()->create([
-        'name'=> 'Client',
-        'email'=> 'client@test.com',
-        'password'=> bcrypt('123456789'),
+            $UserClient = \App\Models\User::create([
+            'name' => 'Client',
+            'email' => 'client@test.com',
+            'id_rol' => '3',
+            'email_verified_at' => now(),
+            'password' => bcrypt('12345678'),
+            'remember_token' => Str::random(10)
         ])->assignRole('client');
+
     }
 }
