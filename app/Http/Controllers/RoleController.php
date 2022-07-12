@@ -30,7 +30,7 @@ class RoleController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string|max:255',
+            'name' => 'required',
             ]);
         if($validator->fails()){
             return response()->json([
@@ -39,11 +39,11 @@ class RoleController extends Controller
                 'code' => 409
             ]);
         }
-        $Role = Role::update([
-            'name' => $request->name,
-            ]);
-        $Role->save();
 
+        $Role = Role::findOrFail($request->id);
+            $Role->name = $request->name;
+
+            $Role->save();
 
         return response()->json([
             'status' => 'success',

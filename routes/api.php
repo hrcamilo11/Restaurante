@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\CartController;
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -26,15 +27,34 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
             Route::delete('destroy/{id}',       [AuthController::class,'destroy']);
     });
 
+
     Route::group([
         'middleware'=> 'api',
         'prefix'=>'product',
     ],function($router){
+
+            //Products
             Route::get('index',                 [ProductController::class,'index']);
             Route::post('store',                [ProductController::class, 'store']);
             Route::put('update/{id}',           [ProductController::class,'update']);
             Route::delete('destroy/{id}',       [ProductController::class,'destroy']);
+
         });
+
+
+        Route::group([
+        'middleware'=> 'api',
+        'prefix'=>'products/shop',
+    ],function($router){
+
+            //Shop
+            Route::get('Shoplist',         [CartController::class,'index']);
+            Route::post('add',             [CartController::class, 'add']);
+            Route::patch('update',         [CartController::class,'update']);
+            Route::delete('destroy',       [CartController::class,'destroy']);
+
+        });
+
 
     Route::group([
         'middleware'=> 'api',
@@ -54,9 +74,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
             Route::get('Show',                  [PermissionController::class,'Show']);
             Route::post('ProductAll',           [PermissionController::class,'ProductAll']);
             Route::post('RoleAll',              [PermissionController::class,'RoleAll']);
-            Route::post('UserAllClient',        [PermissionController::class,'UserAll']);
-            Route::post('UserAllEmpleado',      [PermissionController::class,'UserAll']);
-            Route::post('UserAllAdmin',         [PermissionController::class,'UserAll']);
+            Route::post('UserAllClient',        [PermissionController::class,'UserAllClient']);
+            Route::post('UserAllEmpleado',      [PermissionController::class,'UserAllEmpleado']);
+            Route::post('UserAllAdmin',         [PermissionController::class,'UserAllAdmin']);
             Route::post('UsersCreateadmin',     [PermissionController::class,'UsersCreateadmin']);
             Route::post('UsersCreateempleado',  [PermissionController::class,'UsersCreateempleado']);
             Route::post('UsersCreateclient',    [PermissionController::class,'UsersCreateclient']);

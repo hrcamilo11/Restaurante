@@ -15,7 +15,7 @@ class Buy extends Model
     protected $fillable = [
         'id_Sale',
         'id_Product',
-        'Amount',
         'Price',
+        'Amount',
     ];
 }

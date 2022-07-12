@@ -58,7 +58,7 @@ class PermissionController extends Controller
 
     public function Show(Request $request)
     {
-        $id=Role::findById($request->id);
+        $id=Permission::findById($request->id);
 
         $validator = Validator::make($request->all(),[
             'id' => 'required',
@@ -74,7 +74,7 @@ class PermissionController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Current permissions',
-            'Role' => $id,
+            'Permission' => $id,
             ],201);;
     }
 
