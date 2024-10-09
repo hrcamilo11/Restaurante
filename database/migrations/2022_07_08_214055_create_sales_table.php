@@ -15,10 +15,10 @@ class CreateSalesTable extends Migration
     {
         Schema::create('Sales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_User')
+            $table->foreignId('id_user')
                   ->onUpdate('cascade')
                   ->onDelete('cascade')
-                  ->constrained('Users');
+                  ->constrained('users');
             $table->float('Total_Price');
             $table->timestamps();
         });

@@ -27,62 +27,62 @@ class RoleSeeder extends Seeder
       Luego de esto se ejecutan las migraciones y seeders.
 
       */
-      //Creación de roles
-       $Admin = Role::create(['name' => 'admin']);
-       $Empleado = Role::create(['name' => 'empleado']);
-       $Client = Role::create(['name' => 'client']);
+        // Creación de roles
+        $Admin = Role::firstOrCreate(['name' => 'admin']);
+        $Empleado = Role::firstOrCreate(['name' => 'empleado']);
+        $Client = Role::firstOrCreate(['name' => 'client']);
 
        //Creación de permisos
        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //USER
        // - Create
-      Permission::create(['name'=>'Users.Create.admin'])->SyncRoles(['admin']);
-      Permission::create(['name'=>'Users.Create.empleado'])->SyncRoles(['admin']);
-      Permission::create(['name'=>'Users.Create.client'])->SyncRoles(['admin','client']);
+      Permission::firstOrCreate(['name'=>'Users.Create.admin'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Users.Create.empleado'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Users.Create.client'])->SyncRoles(['admin','client']);
       // - Edit
-      Permission::create(['name'=>'Users.Edit.admin'])->SyncRoles(['admin']);
-      Permission::create(['name'=>'Users.Edit.empleado'])->SyncRoles(['admin']);
-      Permission::create(['name'=>'Users.Edit.client'])->SyncRoles(['admin','client']);
+      Permission::firstOrCreate(['name'=>'Users.Edit.admin'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Users.Edit.empleado'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Users.Edit.client'])->SyncRoles(['admin','client']);
       // - Read
-      Permission::create(['name'=>'Users.Read.admin'])->SyncRoles(['admin']);
-      Permission::create(['name'=>'Users.Read.empleado'])->SyncRoles(['admin','empleado']);
-      Permission::create(['name'=>'Users.Read.client'])->SyncRoles(['admin','client']);
+      Permission::firstOrCreate(['name'=>'Users.Read.admin'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Users.Read.empleado'])->SyncRoles(['admin','empleado']);
+      Permission::firstOrCreate(['name'=>'Users.Read.client'])->SyncRoles(['admin','client']);
       // - Delete
-      Permission::create(['name'=>'Users.Delete.admin'])->SyncRoles(['admin']);
-      Permission::create(['name'=>'Users.Delete.empleado'])->SyncRoles(['admin']);
-      Permission::create(['name'=>'Users.Delete.client'])->SyncRoles(['admin','client']);
+      Permission::firstOrCreate(['name'=>'Users.Delete.admin'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Users.Delete.empleado'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Users.Delete.client'])->SyncRoles(['admin','client']);
 
 
        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //ROLE
        // - Create
-      Permission::create(['name'=>'Role.Create'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Role.Create'])->SyncRoles(['admin']);
       // - Edit
-      Permission::create(['name'=>'Role.Edit'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Role.Edit'])->SyncRoles(['admin']);
       // - Read
-      Permission::create(['name'=>'Role.Read'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Role.Read'])->SyncRoles(['admin']);
       // - Delete
-      Permission::create(['name'=>'Role.Delete'])->SyncRoles(['admin']);
+      Permission::firstOrCreate(['name'=>'Role.Delete'])->SyncRoles(['admin']);
 
       // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //PRODUCT
        // - Create
-      Permission::create(['name'=>'Product.Create'])->SyncRoles(['admin','empleado']);
+      Permission::firstOrCreate(['name'=>'Product.Create'])->SyncRoles(['admin','empleado']);
       // - Edit
-      Permission::create(['name'=>'Product.Edit'])->SyncRoles(['admin','empleado','client']);
+      Permission::firstOrCreate(['name'=>'Product.Edit'])->SyncRoles(['admin','empleado','client']);
       // - Read
-      Permission::create(['name'=>'Product.Read'])->SyncRoles(['admin','empleado','client']);
+      Permission::firstOrCreate(['name'=>'Product.Read'])->SyncRoles(['admin','empleado','client']);
       // - Delete
-      Permission::create(['name'=>'Product.Delete'])->SyncRoles(['admin','empleado']);
+      Permission::firstOrCreate(['name'=>'Product.Delete'])->SyncRoles(['admin','empleado']);
 
       // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
        //SHOP
        // - Add
-      Permission::create(['name'=>'Shop.Add'])->SyncRoles(['admin','empleado','client']);
+      Permission::firstOrCreate(['name'=>'Shop.Add'])->SyncRoles(['admin','empleado','client']);
       // - Sale
-      Permission::create(['name'=>'Shop.Sale'])->SyncRoles(['admin','empleado','client']);
+      Permission::firstOrCreate(['name'=>'Shop.Sale'])->SyncRoles(['admin','empleado','client']);
       // - Pay
-      Permission::create(['name'=>'Shop.Pay'])->SyncRoles(['admin','empleado','client']);
+      Permission::firstOrCreate(['name'=>'Shop.Pay'])->SyncRoles(['admin','empleado','client']);
 
 
     }

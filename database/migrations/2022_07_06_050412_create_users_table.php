@@ -13,16 +13,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('users');
+
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('id_rol')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade')
-                  ->constrained('roles');
+            $table->bigInteger('id_rol')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

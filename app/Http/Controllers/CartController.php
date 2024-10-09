@@ -13,7 +13,7 @@ class CartController extends Controller
     public function index()
     {
         $Product = Product::all();
-        return $Product);
+        return $Product;
     }
 
     public function add($id)
